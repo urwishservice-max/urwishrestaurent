@@ -7,7 +7,22 @@ import { useCart } from '@/context/CartContext';
 import api from '@/lib/api';
 import { toast } from 'sonner';
 
+import { Suspense } from 'react';
+
 export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center font-black text-3xl shadow-lg mx-auto mb-4 text-white animate-pulse">U</div>
+        <h1 className="text-xl font-bold text-gray-800">Loading Urwish...</h1>
+      </div>
+    }>
+      <AuthContent />
+    </Suspense>
+  );
+}
+
+function AuthContent() {
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [formData, setFormData] = useState({ name: '', phone: '', dob: '' });
   const [otp, setOtp] = useState('');
@@ -91,7 +106,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6" suppressHydrationWarning>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-500 border border-gray-100">
         <div className="bg-orange-500 p-8 text-white text-center">
           <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center font-black text-3xl shadow-lg mx-auto mb-4 transform -rotate-12">U</div>
@@ -201,16 +216,15 @@ export default function AuthPage() {
         </form>
       </div>
       
-      <p className="mt-8 text-gray-400 text-sm font-bold tracking-tight">
-        © 2026 Urwish Restaurant. All rights reserved.
-        <br />
+      <div className="mt-8 text-gray-400 text-sm font-bold tracking-tight text-center">
+        <p>© 2026 Urwish Restaurant. All rights reserved.</p>
         <button 
           onClick={() => router.push('/admin/login')}
           className="mt-2 text-[10px] text-gray-300 hover:text-orange-500 transition-colors uppercase tracking-widest font-black"
         >
           Admin Portal
         </button>
-      </p>
+      </div>
     </div>
   );
 }

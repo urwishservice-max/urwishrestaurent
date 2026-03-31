@@ -70,6 +70,8 @@ export default function CheckoutPage() {
       setTableNumber(tableInput);
     }
     
+    if (!user) return;
+    
     try {
       const { data } = await api.post('orders', {
         customer: { name: user.name, phone: user.phone },

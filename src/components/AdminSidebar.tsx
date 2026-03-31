@@ -19,7 +19,14 @@ import { useAuth } from '@/context/AuthContext';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-const menuItems = [
+interface MenuItem {
+  name: string;
+  href: string;
+  icon: React.ElementType;
+  placeholder?: boolean;
+}
+
+const menuItems: MenuItem[] = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutGrid },
   { name: 'Live Orders', href: '/admin/orders', icon: Receipt },
   { name: 'Menu Editor', href: '/admin/menu', icon: UtensilsCrossed },
